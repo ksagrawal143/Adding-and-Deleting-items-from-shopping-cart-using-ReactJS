@@ -1,41 +1,26 @@
 import React, { Component } from "react";
 class Counter extends Component {
   state = {
-    count: 0,
-    tags: ["item1", "item2", "item3"],
+    value: this.props.value,
   };
   styles = {
     fontSize: 40,
     fontWeight: "bold",
   };
-  renderTags() {
-    if (this.state.tags.length === 0) return <p>There are no Items in cart.</p>;
-    return (
-      <ul>
-        {this.state.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    );
-  }
   handleIncrement = (product) => {
     alert("New Item added");
     console.log(product);
-    this.setState({ count: this.state.count + 1 });
+    this.setState({ value: this.state.value + 1 });
   };
   handleDecrement = () => {
-    if (this.state.count === 0) alert("Your cart is empty");
-    else this.setState({ count: this.state.count - 1 });
+    if (this.state.value === 0) alert("Your cart is empty");
+    else this.setState({ value: this.state.value - 1 });
   };
   render() {
     return (
       <div>
-        <span>
-          <h1>Total items in the cart now: {this.formatCount()}</h1>
-        </span>
-        {this.state.tags.length === 0 &&
-          "Please add some items to Cart to Checkout !!"}
-        {this.renderTags()}
+        {this.props.children}
+        <span>Quantity of Item to bought: {this.formatCount()} </span>
         <button onClick={() => this.handleIncrement({ id: 1 })}>
           Add to Cart
         </button>
@@ -44,8 +29,8 @@ class Counter extends Component {
     );
   }
   formatCount() {
-    const { count } = this.state;
-    return <b>{count}</b>;
+    const { value } = this.state;
+    return <b>{value}</b>;
   }
 }
 
